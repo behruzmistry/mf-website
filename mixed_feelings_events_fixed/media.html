@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media - mixed feelings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Oswald:wght@400;500;700&display=swap");
+
+        :root {
+            --color-black: #000000;
+            --color-dark-gray: #121212;
+            --color-mid-gray: #333333;
+            --color-light-gray: #777777;
+            --color-white: #FFFFFF;
+            --color-purple-dark: #4A00E0;
+            --color-purple-light: #8E2DE2;
+            --gradient-purple: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple-light));
+            --gradient-dark: linear-gradient(135deg, #000000, #1a001a, #000000);
+            --font-heading: "Oswald", sans-serif;
+            --font-body: "Montserrat", sans-serif;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.4s ease;
+            --transition-slow: 0.8s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--color-black);
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(ellipse at center, rgba(74, 0, 224, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 45s linear infinite;
+        }
+
+        .bg-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=");
+            opacity: 0.4;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background-color var(--transition-medium);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo img {
+            max-height: 50px;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        nav {
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--color-white);
+            letter-spacing: 1px;
+            position: relative;
+            transition: color var(--transition-fast);
+            padding: 5px 0;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-purple);
+            transition: width var(--transition-medium);
+        }
+
+        nav ul li a:hover {
+            color: var(--color-purple-light);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 60vh; /* Reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px; /* Account for fixed header */
+            padding-bottom: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 0; /* Removed margin for tighter look */
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .section-darker {
+             background-color: rgba(5, 5, 5, 0.7);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            color: var(--color-white);
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-purple);
+            border-radius: 2px;
+        }
+
+        /* Media Tabs */
+        .media-tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow-x: auto; /* Allow horizontal scroll on small screens */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .media-tabs-container::-webkit-scrollbar { /* Hide scrollbar for Chrome, Safari, Edge */
+            display: none;
+        }
+
+        .media-tabs {
+            display: flex;
+            gap: 15px;
+            padding: 5px 0; /* Padding for visual spacing if tabs overflow */
+        }
+
+        .media-tab {
+            padding: 12px 25px;
+            background-color: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            border-radius: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .media-tab.active {
+            background: var(--gradient-purple);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.3);
+        }
+
+        .media-tab:hover:not(.active) {
+            background-color: rgba(74, 0, 224, 0.2);
+            border-color: var(--color-purple-light);
+            transform: translateY(-3px);
+        }
+
+        .media-content-area {
+            /* Styles for the area displaying media */
+        }
+
+        .media-display {
+            display: none;
+            animation: fadeIn 0.7s forwards;
+        }
+
+        .media-display.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid for Media Items (Mixes, Videos, Podcasts, Photos) */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Mix Card / Podcast Card */
+        .mix-card, .podcast-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mix-card:hover, .podcast-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(74,0,224,0.25);
+        }
+
+        .mix-image, .podcast-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .mix-content, .podcast-content {
+            padding: 25px;
+            flex-grow: 1; /* Allows content to fill space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mix-title, .podcast-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--color-white);
+        }
+
+        .mix-details, .podcast-details {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .mix-details p, .podcast-details p {
+            margin-bottom: 8px;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        .audio-player::-webkit-media-controls-panel {
+            background-color: rgba(30,30,30,0.8);
+        }
+        .audio-player::-webkit-media-controls-play-button,
+        .audio-player::-webkit-media-controls-timeline,
+        .audio-player::-webkit-media-controls-current-time-display,
+        .audio-player::-webkit-media-controls-time-remaining-display,
+        .audio-player::-webkit-media-controls-mute-button,
+        .audio-player::-webkit-media-controls-volume-slider {
+            filter: invert(1) grayscale(1) brightness(1.5);
+        }
+
+
+        .media-links {
+            display: flex;
+            gap: 12px;
+            margin-top: auto; /* Pushes links to bottom if card content is short */
+        }
+
+        .media-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--gradient-purple);
+            color: var(--color-white) !important;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .media-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.3);
+        }
+
+        /* Video Card */
+        .video-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(74,0,224,0.25);
+        }
+
+        .video-embed-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-content {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--color-white);
+        }
+
+        .video-details {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+        }
+
+        /* Photo Grid & Modal */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 250px;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--color-mid-gray); /* Placeholder bg */
+        }
+
+        .photo-item:nth-child(5n+1), .photo-item:nth-child(5n+4) { /* Example for varied sizes */
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .photo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-image {
+            transform: scale(1.08);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .photo-caption {
+            color: var(--color-white);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Modal for Photo Viewer */
+        .photo-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.92);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-modal-content {
+            margin: auto;
+            display: block;
+            max-width: 85%;
+            max-height: 85vh;
+            border-radius: 8px;
+        }
+
+        .photo-modal-caption {
+            margin-top: 15px;
+            color: var(--color-light-gray);
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 10px;
+        }
+
+        .close-photo-modal {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 45px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-photo-modal:hover,
+        .close-photo-modal:focus {
+            color: var(--color-purple-light);
+            text-decoration: none;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--gradient-dark);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .newsletter-content h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+            color: var(--color-white);
+        }
+
+        .newsletter-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            max-width: 550px;
+            margin: 0 auto;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            background-color: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: var(--color-white);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            min-width: 250px; /* Ensure input has decent width */
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--color-purple-light);
+            box-shadow: 0 0 0 3px rgba(142, 45, 226, 0.3);
+        }
+
+        .newsletter-button {
+            padding: 15px 35px;
+            background: var(--gradient-purple);
+            color: var(--color-white);
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .newsletter-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.35);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background-color: rgba(10, 10, 10, 0.9);
+            text-align: center;
+            position: relative;
+            margin-top: 0; /* Removed margin-top if newsletter is last */
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        .footer-logo img {
+            max-height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .social-icons {
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: var(--color-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .social-icons a:hover {
+            color: var(--color-purple-light);
+            transform: scale(1.1);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact a {
+            color: var(--color-purple-light);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-contact a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .footer-dubai {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 30px;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            nav ul {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none; /* Hide nav links */
+                flex-direction: column;
+                position: absolute;
+                top: 70px; /* Adjust based on header height */
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            }
+            nav ul.active {
+                display: flex; /* Show when active */
+            }
+            nav ul li {
+                margin: 15px 0;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .media-tabs {
+                padding: 5px 15px; /* Ensure tabs don't touch edges on mobile */
+            }
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .newsletter-input {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .newsletter-button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+                </div>
+                <nav>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="services.html">Creative Services</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Our Sounds & Sights</h1>
+                <p class="hero-subtitle">Explore DJ mixes, video content, podcasts, and photo galleries from the world of Mixed Feelings.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section media-section">
+        <div class="container">
+            <div class="media-tabs-container">
+                <div class="media-tabs" id="mediaTabs">
+                    <button class="media-tab active" data-media="mixes">DJ Mixes</button>
+                    <button class="media-tab" data-media="videos">Videos</button>
+                    <button class="media-tab" data-media="podcasts">Podcasts</button>
+                    <button class="media-tab" data-media="photos">Photos</button>
+                </div>
+            </div>
+
+            <div class="media-content-area">
+                <!-- DJ Mixes -->
+                <div class="media-display active" id="media-mixes">
+                    <div class="media-grid">
+                        <div class="mix-card">
+                            <img src="images/media/mix_cover_1.jpg" alt="DJ Mix 1" class="mix-image">
+                            <div class="mix-content">
+                                <h3 class="mix-title">Midnight Grooves Vol. 3</h3>
+                                <div class="mix-details">
+                                    <p><i class="fas fa-user-music"></i> DJ: Aura</p>
+                                    <p><i class="fas fa-tag"></i> Genre: Deep House, Soulful</p>
+                                    <p><i class="fas fa-clock"></i> Duration: 62 mins</p>
+                                </div>
+                                <audio controls class="audio-player" src="#">Your browser does not support the audio element.</audio>
+                                <div class="media-links">
+                                    <a href="#" class="media-link"><i class="fab fa-soundcloud"></i> Listen on SoundCloud</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mix-card">
+                            <img src="images/media/mix_cover_1.jpg" alt="DJ Mix 2" class="mix-image">
+                            <div class="mix-content">
+                                <h3 class="mix-title">Rework Radio 001</h3>
+                                <div class="mix-details">
+                                    <p><i class="fas fa-user-music"></i> DJ: Mixed Feelings</p>
+                                    <p><i class="fas fa-tag"></i> Genre: Eclectic, Edits</p>
+                                    <p><i class="fas fa-clock"></i> Duration: 90 mins</p>
+                                </div>
+                                <audio controls class="audio-player" src="#">Your browser does not support the audio element.</audio>
+                                <div class="media-links">
+                                    <a href="#" class="media-link"><i class="fab fa-mixcloud"></i> Listen on Mixcloud</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mix-card">
+                            <img src="images/media/mix_cover_1.jpg" alt="DJ Mix 3" class="mix-image">
+                            <div class="mix-content">
+                                <h3 class="mix-title">Sunset Vibes Live</h3>
+                                <div class="mix-details">
+                                    <p><i class="fas fa-user-music"></i> DJ: Shef Codes</p>
+                                    <p><i class="fas fa-tag"></i> Genre: Amapiano, Afrobeats</p>
+                                    <p><i class="fas fa-clock"></i> Duration: 75 mins</p>
+                                </div>
+                                <audio controls class="audio-player" src="#">Your browser does not support the audio element.</audio>
+                                <div class="media-links">
+                                    <a href="#" class="media-link"><i class="fab fa-youtube"></i> Watch on YouTube</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Videos -->
+                <div class="media-display" id="media-videos">
+                    <div class="media-grid">
+                        <div class="video-card">
+                            <div class="video-embed-container">
+                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-content">
+                                <h3 class="video-title">Low End Therapy - Event Recap</h3>
+                                <p class="video-details"><i class="fas fa-calendar-alt"></i> Published: May 10, 2025</p>
+                            </div>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-embed-container">
+                                <iframe src="https://www.youtube.com/embed/L_LUpnjgPso" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-content">
+                                <h3 class="video-title">Artist Spotlight: Mister Mistry</h3>
+                                <p class="video-details"><i class="fas fa-calendar-alt"></i> Published: Apr 28, 2025</p>
+                            </div>
+                        </div>
+                         <div class="video-card">
+                            <div class="video-embed-container">
+                                <iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-content">
+                                <h3 class="video-title">Pass The Aux - Community Night</h3>
+                                <p class="video-details"><i class="fas fa-calendar-alt"></i> Published: Apr 15, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcasts -->
+                <div class="media-display" id="media-podcasts">
+                    <div class="media-grid">
+                        <div class="podcast-card">
+                            <img src="images/media/podcast_cover_1.jpg" alt="Podcast Episode 1" class="podcast-image">
+                            <div class="podcast-content">
+                                <h3 class="podcast-title">The Creative Pulse Ep. 12</h3>
+                                <div class="podcast-details">
+                                    <p><i class="fas fa-microphone-alt"></i> Host: Mixed Feelings</p>
+                                    <p><i class="fas fa-user-friends"></i> Guest: Aura</p>
+                                    <p><i class="fas fa-info-circle"></i> Topic: The Art of DJing & Curation</p>
+                                </div>
+                                <audio controls class="audio-player" src="#">Your browser does not support the audio element.</audio>
+                                <div class="media-links">
+                                    <a href="#" class="media-link"><i class="fab fa-spotify"></i> Spotify</a>
+                                    <a href="#" class="media-link"><i class="fab fa-apple"></i> Apple Podcasts</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="podcast-card">
+                            <img src="images/media/podcast_cover_1.jpg" alt="Podcast Episode 2" class="podcast-image">
+                            <div class="podcast-content">
+                                <h3 class="podcast-title">Dubai Soundscapes Ep. 5</h3>
+                                <div class="podcast-details">
+                                    <p><i class="fas fa-microphone-alt"></i> Host: Local Scene Zine</p>
+                                    <p><i class="fas fa-user-friends"></i> Featuring: Mixed Feelings</p>
+                                    <p><i class="fas fa-info-circle"></i> Topic: Building a Creative Community</p>
+                                </div>
+                                <audio controls class="audio-player" src="#">Your browser does not support the audio element.</audio>
+                                <div class="media-links">
+                                    <a href="#" class="media-link"><i class="fab fa-soundcloud"></i> SoundCloud</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photos -->
+                <div class="media-display" id="media-photos">
+                    <div class="photos-grid" id="photosGrid">
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 1" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Low End Therapy Nights</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 2" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Crowd Energy</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 3" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Artist Close-up</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 4" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Venue Atmosphere</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 5" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Trapsoul Moments</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 6" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Behind The Decks</p></div>
+                        </div>
+                         <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 7" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Unwine Vibes</p></div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="images/media/gallery/photo_1.jpg" alt="Photo 8" class="photo-image" data-full="images/media/gallery/photo_1.jpg">
+                            <div class="photo-overlay"><p class="photo-caption">Community Gathering</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="photo-modal">
+        <span class="close-photo-modal" id="closePhotoModal">&times;</span>
+        <img class="photo-modal-content" id="modalImage">
+        <div id="modalCaption" class="photo-modal-caption"></div>
+    </div>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Connected</h2>
+                <p>Subscribe to our newsletter for the latest updates, event announcements, exclusive mixes, and more from the Mixed Feelings universe.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+            </div>
+            <p class="footer-tagline">Where creativity meets community.</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+            </div>
+            <div class="footer-contact">
+                <p>Get in touch: <a href="mailto:connect@mixedfeelingscreative.com">connect@mixedfeelingscreative.com</a></p>
+            </div>
+            <p class="footer-dubai">From Dubai, For Dubai</p>
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="media.html">Media</a>
+                <a href="merch.html">Merch</a>
+                <a href="services.html">Creative Services</a>
+            </div>
+            <p class="copyright">&copy; 2025 mixed feelings. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Header scroll effect
+            const header = document.querySelector("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // Hamburger menu toggle
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", () => {
+                    navMenu.classList.toggle("active");
+                    menuToggle.querySelector("i").classList.toggle("fa-bars");
+                    menuToggle.querySelector("i").classList.toggle("fa-times");
+                });
+            }
+
+            // Media Tabs Logic
+            const mediaTabs = document.querySelectorAll(".media-tab");
+            const mediaDisplays = document.querySelectorAll(".media-display");
+
+            function showMedia(mediaType) {
+                mediaDisplays.forEach(display => {
+                    display.classList.remove("active");
+                    if (display.id === `media-${mediaType}`) {
+                        display.classList.add("active");
+                    }
+                });
+                mediaTabs.forEach(tab => {
+                    tab.classList.remove("active");
+                    if (tab.dataset.media === mediaType) {
+                        tab.classList.add("active");
+                    }
+                });
+            }
+
+            mediaTabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    showMedia(tab.dataset.media);
+                });
+            });
+
+            // Photo Modal Logic
+            const modal = document.getElementById("photoModal");
+            const modalImg = document.getElementById("modalImage");
+            const captionText = document.getElementById("modalCaption");
+            const photoItems = document.querySelectorAll(".photo-item img");
+            const span = document.getElementById("closePhotoModal");
+
+            photoItems.forEach(item => {
+                item.addEventListener("click", function(){
+                    modal.style.display = "flex";
+                    modalImg.src = this.dataset.full || this.src;
+                    captionText.innerHTML = this.alt;
+                });
+            });
+
+            if (span) {
+                span.onclick = function() { 
+                    modal.style.display = "none";
+                }
+            }
+            if (modal) {
+                 modal.onclick = function(event) {
+                    if (event.target === modal) { // Close if clicked on background
+                        modal.style.display = "none";
+                    }
+                }
+            }
+
+            // Newsletter Form Submission (Placeholder)
+            const newsletterForm = document.getElementById("newsletterForm");
+            if (newsletterForm) {
+                newsletterForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const email = newsletterForm.querySelector("input[name='email']").value;
+                    console.log("Newsletter Subscription:", email);
+                    alert("Thank you for subscribing to our newsletter!");
+                    newsletterForm.reset();
+                });
+            }
+
+            // Initial media display (e.g., first tab)
+            if (mediaTabs.length > 0) {
+                showMedia(mediaTabs[0].dataset.media);
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise - mixed feelings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Oswald:wght@400;500;700&display=swap");
+
+        :root {
+            --color-black: #000000;
+            --color-dark-gray: #121212;
+            --color-mid-gray: #333333;
+            --color-light-gray: #777777;
+            --color-white: #FFFFFF;
+            --color-purple-dark: #4A00E0;
+            --color-purple-light: #8E2DE2;
+            --gradient-purple: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple-light));
+            --gradient-dark: linear-gradient(135deg, #000000, #1a001a, #000000);
+            --font-heading: "Oswald", sans-serif;
+            --font-body: "Montserrat", sans-serif;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.4s ease;
+            --transition-slow: 0.8s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--color-black);
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(ellipse at center, rgba(74, 0, 224, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 45s linear infinite;
+        }
+
+        .bg-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=");
+            opacity: 0.4;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background-color var(--transition-medium);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo img {
+            max-height: 50px;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        nav {
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--color-white);
+            letter-spacing: 1px;
+            position: relative;
+            transition: color var(--transition-fast);
+            padding: 5px 0;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-purple);
+            transition: width var(--transition-medium);
+        }
+
+        nav ul li a:hover {
+            color: var(--color-purple-light);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 60vh; /* Reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px; /* Account for fixed header */
+            padding-bottom: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 0; /* Removed margin for tighter look */
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .section-darker {
+             background-color: rgba(5, 5, 5, 0.7);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            color: var(--color-white);
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-purple);
+            border-radius: 2px;
+        }
+
+        /* Merch Tabs */
+        .merch-tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow-x: auto; /* Allow horizontal scroll on small screens */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .merch-tabs-container::-webkit-scrollbar { /* Hide scrollbar for Chrome, Safari, Edge */
+            display: none;
+        }
+
+        .merch-tabs {
+            display: flex;
+            gap: 15px;
+            padding: 5px 0; /* Padding for visual spacing if tabs overflow */
+        }
+
+        .merch-tab {
+            padding: 12px 25px;
+            background-color: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            border-radius: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .merch-tab.active {
+            background: var(--gradient-purple);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.3);
+        }
+
+        .merch-tab:hover:not(.active) {
+            background-color: rgba(74, 0, 224, 0.2);
+            border-color: var(--color-purple-light);
+            transform: translateY(-3px);
+        }
+
+        .merch-content-area {
+            /* Styles for the area displaying merch */
+        }
+
+        .merch-display {
+            display: none;
+            animation: fadeIn 0.7s forwards;
+        }
+
+        .merch-display.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(74,0,224,0.25);
+        }
+
+        .product-image-container {
+            width: 100%;
+            padding-bottom: 100%; /* Square aspect ratio */
+            position: relative;
+            background-color: var(--color-mid-gray); /* Placeholder */
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+
+        .product-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--color-white);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-purple-light);
+            margin-bottom: 15px;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .product-options {
+            margin-bottom: 20px;
+        }
+
+        .option-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .size-option, .color-option-label {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: rgba(35,35,35,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .size-option:hover, .color-option-label:hover, 
+        .size-option.active, .color-option-label.active {
+            background-color: var(--color-purple-light);
+            border-color: var(--color-purple-light);
+            color: var(--color-white);
+        }
+
+        .color-option {
+            display: none; /* Hide actual radio button */
+        }
+
+        .color-option-label {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            padding: 0;
+            border-width: 2px;
+            position: relative;
+        }
+        .color-option-label.active::after {
+            content: '\2713'; /* Checkmark */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: var(--color-black); /* Checkmark color for light backgrounds */
+        }
+        .color-option-label.color-black.active::after, 
+        .color-option-label.color-purple.active::after {
+            color: var(--color-white); /* Checkmark color for dark backgrounds */
+        }
+
+
+        .color-black { background-color: #000000; }
+        .color-white { background-color: #FFFFFF; }
+        .color-gray { background-color: #777777; }
+        .color-purple { background-color: #8E2DE2; }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            background-color: rgba(35,35,35,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+            border-radius: 50%;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--color-purple-light);
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 35px;
+            background-color: transparent;
+            border: none;
+            color: var(--color-white);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 0 10px;
+            pointer-events: none; /* Make input not directly editable */
+        }
+
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-purple);
+            color: var(--color-white);
+            border: none;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            margin-top: auto; /* Pushes button to bottom */
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.3);
+        }
+
+        /* Featured Collection Section */
+        .featured-collection-section {
+            padding: 80px 0;
+            background-color: rgba(10,10,10,0.8);
+            text-align: center;
+            margin-top: 80px;
+        }
+        .featured-collection-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        .featured-collection-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 20px;
+            color: var(--color-white);
+        }
+
+        .featured-collection-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .view-collection-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--color-white);
+            border: 2px solid var(--color-purple-light);
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: background-color var(--transition-medium), color var(--transition-medium), transform var(--transition-fast);
+        }
+
+        .view-collection-btn:hover {
+            background-color: var(--color-purple-light);
+            color: var(--color-white);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background-color: rgba(10, 10, 10, 0.9);
+            text-align: center;
+            position: relative;
+            margin-top: 0; /* Removed margin-top if featured collection is last */
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        .footer-logo img {
+            max-height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .social-icons {
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: var(--color-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .social-icons a:hover {
+            color: var(--color-purple-light);
+            transform: scale(1.1);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact a {
+            color: var(--color-purple-light);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-contact a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .footer-dubai {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 30px;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            nav ul {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none; /* Hide nav links */
+                flex-direction: column;
+                position: absolute;
+                top: 70px; /* Adjust based on header height */
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            }
+            nav ul.active {
+                display: flex; /* Show when active */
+            }
+            nav ul li {
+                margin: 15px 0;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .merch-tabs {
+                padding: 5px 15px; /* Ensure tabs don't touch edges on mobile */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+                </div>
+                <nav>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="services.html">Creative Services</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Wear The Vibe</h1>
+                <p class="hero-subtitle">Exclusive merchandise from Mixed Feelings. Limited drops, unique designs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section merch-section">
+        <div class="container">
+            <div class="merch-tabs-container">
+                <div class="merch-tabs" id="merchTabs">
+                    <button class="merch-tab active" data-merch="all">All Products</button>
+                    <button class="merch-tab" data-merch="apparel">Apparel</button>
+                    <button class="merch-tab" data-merch="accessories">Accessories</button>
+                    <button class="merch-tab" data-merch="limited">Limited Edition</button>
+                </div>
+            </div>
+
+            <div class="merch-content-area">
+                <!-- All Products (Initially shown) -->
+                <div class="merch-display active" id="merch-all">
+                    <div class="products-grid">
+                        <!-- Product 1: MF Classic Tee -->
+                        <div class="product-card" data-category="apparel">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="MF Classic Tee - Black" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">MF Classic Tee</h3>
+                                <p class="product-price">AED 120</p>
+                                <p class="product-description">Our signature logo tee. Premium cotton, comfortable fit. Available in multiple colors.</p>
+                                <div class="product-options">
+                                    <label class="option-label">Color:</label>
+                                    <div class="option-group color-options">
+                                        <input type="radio" name="color-tee1" id="color-tee1-black" class="color-option" value="black" checked>
+                                        <label for="color-tee1-black" class="color-option-label color-black active" title="Black"></label>
+                                        <input type="radio" name="color-tee1" id="color-tee1-white" class="color-option" value="white">
+                                        <label for="color-tee1-white" class="color-option-label color-white" title="White"></label>
+                                    </div>
+                                    <label class="option-label">Size:</label>
+                                    <div class="option-group size-options">
+                                        <span class="size-option active" data-value="M">M</span>
+                                        <span class="size-option" data-value="L">L</span>
+                                        <span class="size-option" data-value="XL">XL</span>
+                                    </div>
+                                </div>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 2: Soundwave Hoodie -->
+                        <div class="product-card" data-category="apparel limited">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="Soundwave Hoodie" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">Soundwave Hoodie</h3>
+                                <p class="product-price">AED 250</p>
+                                <p class="product-description">Limited edition hoodie featuring a unique soundwave graphic. Heavyweight fleece for warmth.</p>
+                                <div class="product-options">
+                                    <label class="option-label">Color:</label>
+                                    <div class="option-group color-options">
+                                        <input type="radio" name="color-hoodie1" id="color-hoodie1-gray" class="color-option" value="gray" checked>
+                                        <label for="color-hoodie1-gray" class="color-option-label color-gray active" title="Heather Gray"></label>
+                                    </div>
+                                    <label class="option-label">Size:</label>
+                                    <div class="option-group size-options">
+                                        <span class="size-option active" data-value="L">L</span>
+                                        <span class="size-option" data-value="XL">XL</span>
+                                        <span class="size-option" data-value="XXL">XXL</span>
+                                    </div>
+                                </div>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 3: MF Logo Cap -->
+                        <div class="product-card" data-category="accessories">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="MF Logo Cap" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">MF Logo Cap</h3>
+                                <p class="product-price">AED 90</p>
+                                <p class="product-description">Classic dad cap with embroidered Mixed Feelings logo. Adjustable strap.</p>
+                                <div class="product-options">
+                                    <label class="option-label">Color:</label>
+                                    <div class="option-group color-options">
+                                        <input type="radio" name="color-cap1" id="color-cap1-black" class="color-option" value="black" checked>
+                                        <label for="color-cap1-black" class="color-option-label color-black active" title="Black"></label>
+                                        <input type="radio" name="color-cap1" id="color-cap1-purple" class="color-option" value="purple">
+                                        <label for="color-cap1-purple" class="color-option-label color-purple" title="Purple"></label>
+                                    </div>
+                                </div>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 4: Vinyl Slipmat Set -->
+                        <div class="product-card" data-category="accessories limited">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="Vinyl Slipmat Set" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">Vinyl Slipmat Set (Pair)</h3>
+                                <p class="product-price">AED 150</p>
+                                <p class="product-description">Premium quality slipmats for DJs. Features iconic Mixed Feelings branding. Sold as a pair.</p>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                         <!-- Product 5: Gradient Tote Bag -->
+                        <div class="product-card" data-category="accessories">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="Gradient Tote Bag" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">Gradient Tote Bag</h3>
+                                <p class="product-price">AED 75</p>
+                                <p class="product-description">Durable canvas tote bag with our signature purple gradient design. Perfect for everyday use.</p>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 6: MF Beanie -->
+                        <div class="product-card" data-category="apparel accessories">
+                            <div class="product-image-container">
+                                <img src="images/merch/mf_classic_tee_black.jpg" alt="MF Beanie" class="product-image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">MF Beanie</h3>
+                                <p class="product-price">AED 80</p>
+                                <p class="product-description">Soft knit beanie with a subtle Mixed Feelings tag. Keep warm in style.</p>
+                                 <div class="product-options">
+                                    <label class="option-label">Color:</label>
+                                    <div class="option-group color-options">
+                                        <input type="radio" name="color-beanie1" id="color-beanie1-black" class="color-option" value="black" checked>
+                                        <label for="color-beanie1-black" class="color-option-label color-black active" title="Black"></label>
+                                        <input type="radio" name="color-beanie1" id="color-beanie1-gray" class="color-option" value="gray">
+                                        <label for="color-beanie1-gray" class="color-option-label color-gray" title="Dark Gray"></label>
+                                    </div>
+                                </div>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Other categories will be filtered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-collection-section">
+        <div class="container">
+            <h2 class="featured-collection-title">Featured Collection: Rework Series</h2>
+            <p class="featured-collection-subtitle">Inspired by our Rework events, this limited collection features unique designs and premium materials. Explore the full range.</p>
+            <a href="#" class="view-collection-btn" id="viewReworkCollectionBtn">View Rework Collection</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+            </div>
+            <p class="footer-tagline">Where creativity meets community.</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+            </div>
+            <div class="footer-contact">
+                <p>Get in touch: <a href="mailto:connect@mixedfeelingscreative.com">connect@mixedfeelingscreative.com</a></p>
+            </div>
+            <p class="footer-dubai">From Dubai, For Dubai</p>
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="media.html">Media</a>
+                <a href="merch.html">Merch</a>
+                <a href="services.html">Creative Services</a>
+            </div>
+            <p class="copyright">&copy; 2025 mixed feelings. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Header scroll effect
+            const header = document.querySelector("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // Hamburger menu toggle
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", () => {
+                    navMenu.classList.toggle("active");
+                    menuToggle.querySelector("i").classList.toggle("fa-bars");
+                    menuToggle.querySelector("i").classList.toggle("fa-times");
+                });
+            }
+
+            // Merch Tabs Logic
+            const merchTabs = document.querySelectorAll(".merch-tab");
+            const productCards = document.querySelectorAll(".products-grid .product-card");
+            const allProductsDisplay = document.getElementById("merch-all"); // The main container for all products
+
+            function filterProducts(category) {
+                productCards.forEach(card => {
+                    const cardCategories = card.dataset.category ? card.dataset.category.split(" ") : [];
+                    if (category === "all" || cardCategories.includes(category)) {
+                        card.style.display = "flex"; // Or "block" if that's your default
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+
+            merchTabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    merchTabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+                    const filterCategory = tab.dataset.merch;
+                    filterProducts(filterCategory);
+                    // Ensure the main display area is active if it was hidden
+                    if (allProductsDisplay) allProductsDisplay.classList.add("active"); 
+                });
+            });
+
+            // Product Options (Size & Color)
+            document.querySelectorAll(".product-card").forEach(card => {
+                // Size options
+                const sizeOptions = card.querySelectorAll(".size-option");
+                sizeOptions.forEach(option => {
+                    option.addEventListener("click", () => {
+                        sizeOptions.forEach(opt => opt.classList.remove("active"));
+                        option.classList.add("active");
+                        // You might want to store the selected size, e.g., in a data attribute on the card
+                    });
+                });
+
+                // Color options
+                const colorOptionLabels = card.querySelectorAll(".color-option-label");
+                const colorRadios = card.querySelectorAll(".color-option");
+                colorOptionLabels.forEach(label => {
+                    label.addEventListener("click", () => {
+                        colorOptionLabels.forEach(lbl => lbl.classList.remove("active"));
+                        label.classList.add("active");
+                        // Corresponding radio button is already handled by the label's `for` attribute
+                        // Potentially change product image based on color selected
+                        const selectedColor = card.querySelector('input[name^="color-"]:checked').value;
+                        const productImage = card.querySelector('.product-image');
+                        if (productImage && card.dataset.baseImageName) { // Assuming you add data-base-image-name="mf_classic_tee"
+                             productImage.src = `images/merch/${card.dataset.baseImageName}_${selectedColor}.jpg`;
+                        }
+                    });
+                });
+
+                // Quantity Selector
+                const quantityInput = card.querySelector(".quantity-input");
+                const minusBtn = card.querySelector(".quantity-btn.minus");
+                const plusBtn = card.querySelector(".quantity-btn.plus");
+
+                if (quantityInput && minusBtn && plusBtn) {
+                    minusBtn.addEventListener("click", () => {
+                        let currentValue = parseInt(quantityInput.value);
+                        if (currentValue > 1) {
+                            quantityInput.value = currentValue - 1;
+                        }
+                    });
+                    plusBtn.addEventListener("click", () => {
+                        let currentValue = parseInt(quantityInput.value);
+                        quantityInput.value = currentValue + 1; // Add max quantity logic if needed
+                    });
+                }
+
+                // Add to Cart (Placeholder)
+                const addToCartBtn = card.querySelector(".add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const productName = card.querySelector(".product-title").textContent;
+                        const quantity = quantityInput ? quantityInput.value : 1;
+                        const selectedSizeEl = card.querySelector(".size-option.active");
+                        const selectedSize = selectedSizeEl ? selectedSizeEl.dataset.value : 'N/A';
+                        const selectedColorEl = card.querySelector('input[name^="color-"]:checked');
+                        const selectedColor = selectedColorEl ? selectedColorEl.value : 'N/A';
+                        
+                        console.log(`Added to cart: ${quantity} x ${productName}, Size: ${selectedSize}, Color: ${selectedColor}`);
+                        alert(`${quantity} x ${productName} (Size: ${selectedSize}, Color: ${selectedColor}) added to cart! (Feature in development)`);
+                    });
+                }
+            });
+
+            // "View Rework Collection" button functionality
+            const viewReworkBtn = document.getElementById("viewReworkCollectionBtn");
+            if (viewReworkBtn) {
+                viewReworkBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    // Find the 'Limited Edition' tab and click it
+                    const limitedTab = document.querySelector(".merch-tab[data-merch='limited']");
+                    if (limitedTab) {
+                        limitedTab.click();
+                        // Scroll to the merch section if needed
+                        const merchSection = document.querySelector(".merch-section");
+                        if (merchSection) {
+                            merchSection.scrollIntoView({ behavior: "smooth" });
+                        }
+                    }
+                });
+            }
+
+            // Initial product display (all products)
+            if (merchTabs.length > 0) {
+                filterProducts(merchTabs[0].dataset.merch);
+            }
+        });
+    </script>
+</body>
+</html>
+

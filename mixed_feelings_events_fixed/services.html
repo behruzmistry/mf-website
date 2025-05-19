@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Services - mixed feelings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Oswald:wght@400;500;700&display=swap");
+
+        :root {
+            --color-black: #000000;
+            --color-dark-gray: #121212;
+            --color-mid-gray: #333333;
+            --color-light-gray: #777777;
+            --color-white: #FFFFFF;
+            --color-purple-dark: #4A00E0;
+            --color-purple-light: #8E2DE2;
+            --gradient-purple: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple-light));
+            --gradient-dark: linear-gradient(135deg, #000000, #1a001a, #000000);
+            --font-heading: "Oswald", sans-serif;
+            --font-body: "Montserrat", sans-serif;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.4s ease;
+            --transition-slow: 0.8s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--color-black);
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(ellipse at center, rgba(74, 0, 224, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 45s linear infinite;
+        }
+
+        .bg-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=");
+            opacity: 0.4;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background-color var(--transition-medium);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo img {
+            max-height: 50px;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        nav {
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--color-white);
+            letter-spacing: 1px;
+            position: relative;
+            transition: color var(--transition-fast);
+            padding: 5px 0;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-purple);
+            transition: width var(--transition-medium);
+        }
+
+        nav ul li a:hover {
+            color: var(--color-purple-light);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 60vh; /* Reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px; /* Account for fixed header */
+            padding-bottom: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 0; /* Removed margin for tighter look */
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title-main {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--color-white);
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title-main::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-purple);
+            border-radius: 2px;
+        }
+
+        /* Services Grid - New Layout */
+        .services-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .service-card-new {
+            background-color: rgba(18, 18, 18, 0.85); /* Darker card background */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            text-align: left; /* Align text to left */
+        }
+
+        .service-card-new:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(74,0,224,0.25);
+        }
+
+        .service-image-container {
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px; /* Fixed height for images */
+            background-color: var(--color-mid-gray); /* Placeholder if no image */
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .service-card-new:hover .service-image {
+            transform: scale(1.08);
+        }
+
+        .service-title-new {
+            font-family: var(--font-heading);
+            font-size: 1.8rem; /* Slightly larger title */
+            margin-bottom: 15px;
+            color: var(--color-white);
+            text-transform: uppercase;
+        }
+
+        .service-description-new {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        .service-description-new ul {
+            list-style-position: outside;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .service-description-new ul li {
+            margin-bottom: 8px;
+        }
+
+        .service-cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-purple);
+            color: var(--color-white) !important;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-transform: uppercase;
+            align-self: flex-start; /* Align button to start of flex container */
+            margin-top: auto; /* Pushes button to bottom if card heights vary */
+        }
+
+        .service-cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(142, 45, 226, 0.35);
+        }
+
+        /* Contact/CTA Section */
+        .contact-cta-section {
+            padding: 80px 0;
+            background-color: rgba(10,10,10,0.8);
+            text-align: center;
+            margin-top: 80px;
+        }
+        .contact-cta-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        .contact-cta-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 20px;
+            color: var(--color-white);
+        }
+
+        .contact-cta-description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button-main {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--gradient-purple);
+            color: var(--color-white) !important;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .cta-button-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(142, 45, 226, 0.35);
+        }
+
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background-color: rgba(10, 10, 10, 0.9);
+            text-align: center;
+            position: relative;
+            margin-top: 0; 
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        .footer-logo img {
+            max-height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .social-icons {
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: var(--color-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .social-icons a:hover {
+            color: var(--color-purple-light);
+            transform: scale(1.1);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact a {
+            color: var(--color-purple-light);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-contact a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .footer-dubai {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 30px;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            nav ul {
+                gap: 25px;
+            }
+            .services-grid-new {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none; /* Hide nav links */
+                flex-direction: column;
+                position: absolute;
+                top: 70px; /* Adjust based on header height */
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            }
+            nav ul.active {
+                display: flex; /* Show when active */
+            }
+            nav ul li {
+                margin: 15px 0;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .section-title-main {
+                font-size: 2.5rem;
+            }
+            .services-grid-new {
+                grid-template-columns: 1fr; /* Stack cards on mobile */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+                </div>
+                <nav>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="services.html">Creative Services</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Creative Services</h1>
+                <p class="hero-subtitle">From concept to execution, we bring creative visions to life. Explore our range of bespoke services.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section services-section">
+        <div class="container">
+            <h2 class="section-title-main">Our Expertise</h2>
+            <div class="services-grid-new">
+                <!-- Service 1: Talent Booking & Management -->
+                <div class="service-card-new">
+                    <div class="service-image-container">
+                        <img src="images/services/talent_booking.jpg" alt="Talent Booking & Management" class="service-image">
+                    </div>
+                    <h3 class="service-title-new">Talent Booking & Management</h3>
+                    <div class="service-description-new">
+                        <p>Connecting you with the right talent to elevate your event or project. We manage a diverse roster of DJs, artists, and performers, ensuring seamless integration and unforgettable experiences.</p>
+                        <ul>
+                            <li>DJ & Artist Bookings</li>
+                            <li>Performance Curation</li>
+                            <li>Contract Negotiation</li>
+                            <li>Logistics & Rider Management</li>
+                        </ul>
+                    </div>
+                    <a href="#contact-cta" class="service-cta-button">Enquire Now</a>
+                </div>
+
+                <!-- Service 2: Concept & Venue Production -->
+                <div class="service-card-new">
+                    <div class="service-image-container">
+                        <img src="images/services/talent_booking.jpg" alt="Concept & Venue Production" class="service-image">
+                    </div>
+                    <h3 class="service-title-new">Concept & Venue Production</h3>
+                    <div class="service-description-new">
+                        <p>Transforming ideas into immersive realities. From initial concept development to full-scale production and venue sourcing, we handle every detail to create impactful events.</p>
+                        <ul>
+                            <li>Event Conceptualization & Design</li>
+                            <li>Venue Sourcing & Management</li>
+                            <li>Technical Production (Sound, Light, Visuals)</li>
+                            <li>Stage Design & Theming</li>
+                        </ul>
+                    </div>
+                    <a href="#contact-cta" class="service-cta-button">Discuss Your Project</a>
+                </div>
+
+                <!-- Service 3: Content & Marketing -->
+                <div class="service-card-new">
+                    <div class="service-image-container">
+                        <img src="images/services/talent_booking.jpg" alt="Content & Marketing" class="service-image">
+                    </div>
+                    <h3 class="service-title-new">Content & Marketing</h3>
+                    <div class="service-description-new">
+                        <p>Crafting compelling narratives and strategic campaigns that resonate with your audience. We create engaging content and deploy effective marketing strategies to build your brand and drive results.</p>
+                        <ul>
+                            <li>Brand Strategy & Identity</li>
+                            <li>Content Creation (Photo, Video, Copy)</li>
+                            <li>Social Media Management</li>
+                            <li>Digital Marketing Campaigns</li>
+                        </ul>
+                    </div>
+                    <a href="#contact-cta" class="service-cta-button">Boost Your Brand</a>
+                </div>
+
+                <!-- Service 4: PR & Influencer Communication -->
+                <div class="service-card-new">
+                    <div class="service-image-container">
+                        <img src="images/services/talent_booking.jpg" alt="PR & Influencer Communication" class="service-image">
+                    </div>
+                    <h3 class="service-title-new">PR & Influencer Communication</h3>
+                    <div class="service-description-new">
+                        <p>Amplifying your message through strategic public relations and authentic influencer collaborations. We build relationships and craft stories that enhance your visibility and credibility.</p>
+                        <ul>
+                            <li>Media Relations & Outreach</li>
+                            <li>Press Kit Development</li>
+                            <li>Influencer Identification & Engagement</li>
+                            <li>Campaign Management & Reporting</li>
+                        </ul>
+                    </div>
+                    <a href="#contact-cta" class="service-cta-button">Get In Touch</a>
+                </div>
+
+                <!-- The second row of services (Event Curation and Custom Merchandise) is intentionally omitted as per user instruction -->
+
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-cta-section" id="contact-cta">
+        <div class="container">
+            <h2 class="contact-cta-title">Let's Create Something Together</h2>
+            <p class="contact-cta-description">Have a project in mind or want to learn more about how we can collaborate? Reach out to us, and let's start the conversation.</p>
+            <a href="mailto:connect@mixedfeelingscreative.com" class="cta-button-main">Contact Us</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html"><img src="logos/mixedfeelings Logo (main - White Text, Transparent BG).png" alt="mixed feelings Logo" class="logo-img"></a>
+            </div>
+            <p class="footer-tagline">Where creativity meets community.</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+            </div>
+            <div class="footer-contact">
+                <p>Get in touch: <a href="mailto:connect@mixedfeelingscreative.com">connect@mixedfeelingscreative.com</a></p>
+            </div>
+            <p class="footer-dubai">From Dubai, For Dubai</p>
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="media.html">Media</a>
+                <a href="merch.html">Merch</a>
+                <a href="services.html">Creative Services</a>
+            </div>
+            <p class="copyright">&copy; 2025 mixed feelings. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Header scroll effect
+            const header = document.querySelector("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // Hamburger menu toggle
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", () => {
+                    navMenu.classList.toggle("active");
+                    menuToggle.querySelector("i").classList.toggle("fa-bars");
+                    menuToggle.querySelector("i").classList.toggle("fa-times");
+                });
+            }
+
+            // Smooth scroll for CTA buttons on this page
+            document.querySelectorAll(".service-cta-button").forEach(button => {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute("href");
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: "smooth" });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
